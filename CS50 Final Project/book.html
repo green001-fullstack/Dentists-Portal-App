@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dentist Appointment Booking</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+    input, select, textarea, button {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color:rgb(38, 159, 225);
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover { background-color:rgb(12, 107, 158);}
+  </style>
+</head>
+<body>
+  <h2>Book Your Dentist Appointment</h2>
+  <form id="bookingForm">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="tel" name="phone" placeholder="Phone Number" required>
+
+    <select id="serviceSelect" name="service_id" required></select>
+    <select id="dentistSelect" name="dentist_id" required></select>
+
+    <input type="date" id="appointmentDate" name="date" required>
+    <select id="timeSlotSelect" name="time_slot" required></select>
+
+    <textarea name="notes" placeholder="Reason for visit (optional)"></textarea>
+    <button type="submit">Book Appointment</button>
+  </form>
+
+  <!-- <script>
+    async function fetchOptions() {
+      const [servicesRes, dentistsRes] = await Promise.all([
+        fetch('/api/services'), fetch('/api/dentists')
+      ]);
+      const services = await servicesRes.json();
+      const dentists = await dentistsRes.json();
+
+      const serviceSelect = document.getElementById('serviceSelect');
+      const dentistSelect = document.getElementById('dentistSelect');
+
+      services.forEach(service => {
+        const option = document.createElement('option');
+        option.value = service.id;
+        option.textContent = service.name;
+        serviceSelect.appendChild(option);
+      });
+
+      dentists.forEach(dentist => {
+        const option = document.createElement('option');
+        option.value = dentist.id;
+        option.textContent = dentist.name;
+        dentistSelect.appendChild(option);
+      });
+    }
+
+    document.getElementById("appointmentDate").onchange = async () => {
+      const dentistId = document.getElementById("dentistSelect").value;
+      const date = document.getElementById("appointmentDate").value;
+      const res = await fetch(`/api/available_slots?dentist_id=${dentistId}&date=${date}`);
+      const slots = await res.json();
+      const timeSelect = document.getElementById("timeSlotSelect");
+      timeSelect.innerHTML = '';
+      slots.forEach(slot => {
+        const opt = document.createElement("option");
+        opt.value = slot;
+        opt.textContent = slot;
+        timeSelect.appendChild(opt);
+      });
+    };
+
+    document.getElementById("bookingForm").onsubmit = async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const payload = Object.fromEntries(formData.entries());
+
+      const response = await fetch('/api/book', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+      alert(result.message);
+    };
+
+    fetchOptions();
+  </script> -->
+</body>
+</html>
